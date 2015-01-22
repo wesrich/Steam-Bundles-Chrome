@@ -1,0 +1,24 @@
+{
+  "name": "Steam Bundle Checker",
+  "version": "0.0.1",
+  "manifest_version": 2,
+  "minimum_chrome_version": "29",
+  "content_scripts": [
+    {
+      "matches": [
+        "http://*.humblebundle.com/*",
+        "https://*.humblebundle.com/*"
+      ],
+      "js": [
+        "js/jquery.min.js",
+        "js/background.js"
+      ]
+    }
+  ],
+  "permissions": [
+    "storage",
+    "http://localhost:5000/",
+    "http://hb-steam-checker.herokuapp.com/",
+    "https://*.humblebundle.com/"
+  ]
+}
