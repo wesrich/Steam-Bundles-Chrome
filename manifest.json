@@ -7,18 +7,38 @@
     {
       "matches": [
         "http://*.humblebundle.com/*",
-        "https://*.humblebundle.com/*"
+        "https://*.humblebundle.com/*",
+        "http://*.bundlestars.com/*",
+        "https://*.bundlestars.com/*"
       ],
       "js": [
         "js/jquery.min.js",
         "js/background.js"
       ]
+    },
+    {
+      "matches": [
+        "http://*.humblebundle.com/*",
+        "https://*.humblebundle.com/*"
+      ],
+      "js": [
+        "js/sites/humblebundle.js"
+      ]
+    },
+    {
+      "matches": [
+        "http://*.bundlestars.com/*",
+        "https://*.bundlestars.com/*"
+      ],
+      "js": [
+        "js/sites/bundlestars.js"
+      ]
     }
   ],
   "permissions": [
     "storage",
-    "http://localhost:5000/",
-    "http://hb-steam-checker.herokuapp.com/",
+    "https://localhost:5000/",
+    "https://hb-steam-checker.herokuapp.com/",
     "https://*.humblebundle.com/"
   ]
 }
