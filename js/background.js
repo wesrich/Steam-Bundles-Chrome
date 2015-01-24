@@ -2,8 +2,8 @@ function BundleChecker() {
   var _self = this;
 
   this.version = "0.0.1";
-  this.api_url = "http"+(window.location.protocol=="https"?"s":"")+"://hb-steam-checker.herokuapp.com/";
-  // this.api_url = "http"+(window.location.protocol=="https"?"s":"")+"://localhost:5000/";
+  this.api_url = window.location.protocol+"//hb-steam-checker.herokuapp.com/";
+  // this.api_url = "https://hb-steam-checker.herokuapp.com/";
 
   this.game_list = [];
 
