@@ -18,6 +18,5 @@ HumbleBundle.prototype.constructor = HumbleBundle;
 (function($) {
   $(document).ready(function() {
     var checker = new HumbleBundle();
-    checker.verifyOwnership();
   });
 })(jQuery);

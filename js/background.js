@@ -1,37 +1,54 @@
-function BundleChecker() {
-  var _self = this;
+var api_url = 'hb-steam-checker.herokuapp.com';
 
-  this.version = "0.0.1";
-  this.api_url = window.location.protocol+"//hb-steam-checker.herokuapp.com/";
-  // this.api_url = "https://hb-steam-checker.herokuapp.com/";
-
-  this.game_list = [];
-
-  this.verifyOwnership = function() {
-    this.populateGames();
-    _self.fetchOwnedSteamGames = $.ajax({
-      url: this.api_url+"users/1778a8c8-34f6-4b38-ae3b-19d8945c92c0/games",
-      type: "GET",
-      data: { "list": this.game_list.join(',') }
-    }).done(this.handleGames);
+chrome.runtime.onMessage.addListener(function(request, sender) {
+  console.log( sender );
+  switch (request.action) {
+    case 'steam_sign_in':
+      steam_sign_in(sender.tab.id);
+      break;
+    case 'fetch_games':
+      fetch_games(request.data, sender.tab.id);
+      break;
+    default:
+      console.warn( 'Unhandled Request' );
+      console.log( request, sender );
+      break;
   }
+});
 
-  this.handleGames = function(user_data) {
-    console.log( "Game data not handled:" );
-    console.log( user_data );
-  }
-  // chrome.storage.sync.set({'value': 'test'}, function() {
-  //   console.log('done');
-  //   chrome.storage.sync.get('value', function(result) {
-  //     console.log( result );
-  //   });
-  // });
-  // chrome.storage.sync.remove('value', function() {});
-  // var get_steam_user = $.ajax({
-  //   url: api_url+"users/1778a8c8-34f6-4b38-ae3b-19d8945c92c0",
-  //   type: "GET"
-  // });
-  // get_steam_user.done(function(user_data) {
-  //   console.log( user_data );
-  // });
-};
+function steam_sign_in(calling_tab) {
+  var url, steam_id, auth_timer;
+  chrome.tabs.create({
+    url: 'http://'+api_url+'/auth/steam',
+    active: false
+  }, function(tab) {
+    chrome.windows.create({
+      tabId: tab.id,
+      type: 'popup',
+      height: 500,
+      width: 990,
+      focused: true
+    }, function(win) {
+      auth_timer = setInterval(function() {
+        chrome.windows.get(win.id, {populate: true}, function(auth_win) {
+          url = auth_win.tabs[0].url.split('/');
+          if (url[3] == 'users' && url[2] == api_url) {
+            clearInterval( auth_timer );
+            steam_id = url[url.length-1];
+            chrome.tabs.sendMessage(calling_tab, {action: 'authenticated'})
+            chrome.windows.remove(win.id);
+          }
+        });
+      }, 500);
+    });
+  });
+}
+
+function fetch_games(game_list, calling_tab) {
+  console.log( game_list );
+  // _self.fetchOwnedSteamGames = $.ajax({
+  //   url: this.api_url+"users/"+this.user_id+"/games",
+  //   type: "GET",
+  //   data: { "list": this.game_list.join(',') }
+  // }).done(this.handleGames);
+}
