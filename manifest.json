@@ -5,6 +5,7 @@
   "minimum_chrome_version": "29",
   "background": {
     "scripts": [
+      "js/jquery.min.js",
       "js/background.js"
     ]
   },

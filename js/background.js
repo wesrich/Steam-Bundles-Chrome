@@ -1,4 +1,6 @@
-var api_url = 'hb-steam-checker.herokuapp.com';
+var api_domain = 'hb-steam-checker.herokuapp.com',
+    api_url = 'http://'+api_domain,
+    steam_id = '';
 
 chrome.runtime.onMessage.addListener(function(request, sender) {
   console.log( sender );
@@ -17,9 +19,9 @@ chrome.runtime.onMessage.addListener(function(request, sender) {
 });
 
 function steam_sign_in(calling_tab) {
-  var url, steam_id, auth_timer;
+  var url, auth_timer;
   chrome.tabs.create({
-    url: 'http://'+api_url+'/auth/steam',
+    url: api_url+'/auth/steam',
     active: false
   }, function(tab) {
     chrome.windows.create({
@@ -32,7 +34,7 @@ function steam_sign_in(calling_tab) {
       auth_timer = setInterval(function() {
         chrome.windows.get(win.id, {populate: true}, function(auth_win) {
           url = auth_win.tabs[0].url.split('/');
-          if (url[3] == 'users' && url[2] == api_url) {
+          if (url[3] == 'users' && url[2] == api_domain) {
             clearInterval( auth_timer );
             steam_id = url[url.length-1];
             chrome.tabs.sendMessage(calling_tab, {action: 'authenticated'})
@@ -45,10 +47,12 @@ function steam_sign_in(calling_tab) {
 }
 
 function fetch_games(game_list, calling_tab) {
-  console.log( game_list );
-  // _self.fetchOwnedSteamGames = $.ajax({
-  //   url: this.api_url+"users/"+this.user_id+"/games",
-  //   type: "GET",
-  //   data: { "list": this.game_list.join(',') }
-  // }).done(this.handleGames);
+  if (steam_id == '') { return false; }
+  var fetchOwnedSteamGames = $.ajax({
+    url: api_url+"/users/"+steam_id+"/games",
+    type: "GET",
+    data: { "list": game_list.join(',') }
+  }).done(function(data) {
+    chrome.tabs.sendMessage(calling_tab, {action: 'game_response', data: data})
+  });
 }

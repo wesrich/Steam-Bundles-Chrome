@@ -37,7 +37,7 @@ function BundleChecker() {
 
   this.verifyOwnership = function() {
     this.populateGames();
-    this.message('fetch_games', _self.game_list.join(','));
+    this.message('fetch_games', _self.game_list);
   }
 
   this.handleGames = function(user_data) {
