@@ -33,12 +33,17 @@ function steam_sign_in(calling_tab) {
     }, function(win) {
       auth_timer = setInterval(function() {
         chrome.windows.get(win.id, {populate: true}, function(auth_win) {
-          url = auth_win.tabs[0].url.split('/');
-          if (url[3] == 'users' && url[2] == api_domain) {
+          try {
+            if (auth_win) { clearInterval( auth_timer ); }
+            url = auth_win.tabs[0].url.split('/');
+            if (url[3] == 'users' && url[2] == api_domain) {
+              clearInterval( auth_timer );
+              steam_id = url[url.length-1];
+              chrome.tabs.sendMessage(calling_tab, {action: 'authenticated'})
+              chrome.windows.remove(win.id);
+            }
+          }catch (ex) {
             clearInterval( auth_timer );
-            steam_id = url[url.length-1];
-            chrome.tabs.sendMessage(calling_tab, {action: 'authenticated'})
-            chrome.windows.remove(win.id);
           }
         });
       }, 500);
