@@ -16,9 +16,6 @@ function BundleStars() {
       console.log( game_image, _self.banner(owned) );
       $(game_image).prepend( _self.banner(owned) );
     });
-    // $.each(_self.game_list, function(index, game) {
-    //   console.log( index, game, user_data.games[game] );
-    // });
   }
 };
 BundleStars.prototype = Object.create(BundleChecker.prototype);

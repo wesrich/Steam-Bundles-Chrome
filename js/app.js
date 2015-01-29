@@ -20,7 +20,7 @@ function BundleChecker() {
 
   // Receiving Messages
   this.handleRequest = function(request) {
-    console.log( request.action );
+    // console.log( request.action );
     switch (request.action) {
       case 'authenticated':
         _self.verifyOwnership();
