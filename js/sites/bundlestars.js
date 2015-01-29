@@ -13,7 +13,6 @@ function BundleStars() {
     $('.game-packshot a').each(function(index, game_image) {
       var game = _self.game_list[index],
           owned = user_data.games[game];
-      console.log( game_image, _self.banner(owned) );
       $(game_image).prepend( _self.banner(owned) );
     });
   }
@@ -24,6 +23,5 @@ BundleStars.prototype.constructor = BundleStars;
 (function($) {
   $(document).ready(function() {
     var checker = new BundleStars();
-    checker.verifyOwnership();
   });
 })(jQuery);
