@@ -25,6 +25,9 @@ function BundleChecker() {
       case 'authenticated':
         _self.verifyOwnership();
         break;
+      case 'game_response':
+        _self.handleGames(request.data);
+        break;
       default:
         console.warn( 'Unhandled Message' );
         console.log( arguments );
@@ -44,18 +47,4 @@ function BundleChecker() {
     console.warn( "Game data not handled:" );
     console.log( user_data );
   }
-  // chrome.storage.sync.set({'value': 'test'}, function() {
-  //   console.log('done');
-  //   chrome.storage.sync.get('value', function(result) {
-  //     console.log( result );
-  //   });
-  // });
-  // chrome.storage.sync.remove('value', function() {});
-  // var get_steam_user = $.ajax({
-  //   url: api_url+"users/1778a8c8-34f6-4b38-ae3b-19d8945c92c0",
-  //   type: "GET"
-  // });
-  // get_steam_user.done(function(user_data) {
-  //   console.log( user_data );
-  // });
 };

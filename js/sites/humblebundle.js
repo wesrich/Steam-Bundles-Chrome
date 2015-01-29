@@ -3,13 +3,18 @@ function HumbleBundle() {
   var _self = this;
 
   this.populateGames = function() {
-    $('a[data-machine-name]').each(function(int, game_link) {
+    $('a[data-machine-name]').not('.charity a')
+    .each(function(int, game_link) {
       _self.game_list.push( $(game_link).data('machine-name') );
     });
   }
 
   this.handleGames = function(user_data) {
-    console.log( user_data );
+    $.each(user_data.games, function(game, owned) {
+      $('a[data-machine-name='+game+']').before(
+        '<div class="game-owned game-owned-'+owned+'"></div>'
+      );
+    });
   }
 };
 HumbleBundle.prototype = Object.create(BundleChecker.prototype);

@@ -3,10 +3,9 @@ var api_domain = 'hb-steam-checker.herokuapp.com',
     steam_id = '';
 
 chrome.runtime.onMessage.addListener(function(request, sender) {
-  console.log( sender );
   switch (request.action) {
     case 'steam_sign_in':
-      steam_sign_in(sender.tab.id);
+      check_steam_auth(sender.tab.id);
       break;
     case 'fetch_games':
       fetch_games(request.data, sender.tab.id);
@@ -17,6 +16,21 @@ chrome.runtime.onMessage.addListener(function(request, sender) {
       break;
   }
 });
+
+function check_steam_auth(calling_tab) {
+  if (steam_id == '') {
+    chrome.storage.sync.get('steam_id', function(result) {
+      if (result.hasOwnProperty('steam_id')) {
+        steam_id = result.steam_id;
+        chrome.tabs.sendMessage(calling_tab, {action: 'authenticated'});
+      } else {
+        steam_sign_in(calling_tab);
+      }
+    });
+  } else {
+    chrome.tabs.sendMessage(calling_tab, {action: 'authenticated'});
+  }
+}
 
 function steam_sign_in(calling_tab) {
   var url, auth_timer;
@@ -34,15 +48,16 @@ function steam_sign_in(calling_tab) {
       auth_timer = setInterval(function() {
         chrome.windows.get(win.id, {populate: true}, function(auth_win) {
           try {
-            if (auth_win) { clearInterval( auth_timer ); }
             url = auth_win.tabs[0].url.split('/');
             if (url[3] == 'users' && url[2] == api_domain) {
               clearInterval( auth_timer );
               steam_id = url[url.length-1];
-              chrome.tabs.sendMessage(calling_tab, {action: 'authenticated'})
+              chrome.storage.sync.set({'steam_id': steam_id});
+              chrome.tabs.sendMessage(calling_tab, {action: 'authenticated'});
               chrome.windows.remove(win.id);
             }
-          }catch (ex) {
+          } catch (ex) {
+            console.warn( 'Exception!', ex );
             clearInterval( auth_timer );
           }
         });
