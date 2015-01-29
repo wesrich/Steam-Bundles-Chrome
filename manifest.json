@@ -16,7 +16,9 @@
         "http://*.humblebundle.com/*",
         "https://*.humblebundle.com/*",
         "http://*.bundlestars.com/*",
-        "https://*.bundlestars.com/*"
+        "https://*.bundlestars.com/*",
+        "http://*.indiegala.com/*",
+        "https://*.indiegala.com/*"
       ],
       "css": [
         "css/app.css"
@@ -42,6 +44,15 @@
       ],
       "js": [
         "js/sites/bundlestars.js"
+      ]
+    },
+    {
+      "matches": [
+        "http://*.indiegala.com/*",
+        "https://*.indiegala.com/*"
+      ],
+      "js": [
+        "js/sites/indiegala.js"
       ]
     }
   ],

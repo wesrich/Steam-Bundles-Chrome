@@ -1,7 +1,7 @@
 .game-owned {
   position: absolute;
   height: 100%;
-  width: 100px;
+  width: 105px;
   top: -5px;
   left: -5px;
   overflow: hidden;
@@ -9,6 +9,7 @@
   font-weight: bold;
   letter-spacing: 1px;
   z-index: 1000;
+  text-align: center;
 }
 
 .game-owned > div {
@@ -40,4 +41,9 @@
 
 .game-packshot .game-owned {
   left: 7%;
+}
+
+/* Indie Gala */
+.games-box .b_game {
+  position: relative;
 }
