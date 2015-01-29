@@ -10,7 +10,15 @@ function BundleStars() {
   }
 
   this.handleGames = function(user_data) {
-    console.log( user_data );
+    $('.game-packshot a').each(function(index, game_image) {
+      var game = _self.game_list[index],
+          owned = user_data.games[game];
+      console.log( game_image, _self.banner(owned) );
+      $(game_image).prepend( _self.banner(owned) );
+    });
+    // $.each(_self.game_list, function(index, game) {
+    //   console.log( index, game, user_data.games[game] );
+    // });
   }
 };
 BundleStars.prototype = Object.create(BundleChecker.prototype);

@@ -11,9 +11,7 @@ function HumbleBundle() {
 
   this.handleGames = function(user_data) {
     $.each(user_data.games, function(game, owned) {
-      $('a[data-machine-name='+game+']').before(
-        '<div class="game-owned game-owned-'+owned+'"></div>'
-      );
+      $('a[data-machine-name='+game+'] .game-box').before( _self.banner(owned) );
     });
   }
 };

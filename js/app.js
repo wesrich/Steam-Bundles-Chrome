@@ -47,4 +47,12 @@ function BundleChecker() {
     console.warn( "Game data not handled:" );
     console.log( user_data );
   }
+
+  this.banner = function(is_owned) {
+    return '<div class="game-owned">' +
+             '<div class="game-owned-'+is_owned+'">' +
+               (is_owned===false ? "New!" : "Owned") +
+             '</div>' +
+           '</div>';
+  }
 };

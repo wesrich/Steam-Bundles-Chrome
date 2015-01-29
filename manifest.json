@@ -17,6 +17,9 @@
         "http://*.bundlestars.com/*",
         "https://*.bundlestars.com/*"
       ],
+      "css": [
+        "css/app.css"
+      ],
       "js": [
         "js/jquery.min.js",
         "js/app.js"
