@@ -11,6 +11,7 @@ For more information on how the extension's data is received, please check out [
 ###Supported Sites
 * [Humble Bundle](https://www.humblebundle.com/)
 * [Bundle Stars](http://www.bundlestars.com/)
+* [IndieGala](https://www.indiegala.com/)
 
 ##Feedback
 If you have any issues, please open an [Issue](https://github.com/wesrich/Steam-Bundles-Chrome/issues) with as many details as possible and screenshots where relevant.
