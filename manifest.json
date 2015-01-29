@@ -1,6 +1,6 @@
 {
   "name": "Steam Bundle Checker",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "manifest_version": 2,
   "minimum_chrome_version": "29",
   "author": "Wes Rich",
@@ -13,12 +13,9 @@
   "content_scripts": [
     {
       "matches": [
-        "http://*.humblebundle.com/*",
-        "https://*.humblebundle.com/*",
-        "http://*.bundlestars.com/*",
-        "https://*.bundlestars.com/*",
-        "http://*.indiegala.com/*",
-        "https://*.indiegala.com/*"
+        "*://*.humblebundle.com/*",
+        "*://*.bundlestars.com/*",
+        "*://*.indiegala.com/*"
       ],
       "css": [
         "css/app.css"
@@ -30,8 +27,7 @@
     },
     {
       "matches": [
-        "http://*.humblebundle.com/*",
-        "https://*.humblebundle.com/*"
+        "*://*.humblebundle.com/*"
       ],
       "js": [
         "js/sites/humblebundle.js"
@@ -39,8 +35,7 @@
     },
     {
       "matches": [
-        "http://*.bundlestars.com/*",
-        "https://*.bundlestars.com/*"
+        "*://*.bundlestars.com/*"
       ],
       "js": [
         "js/sites/bundlestars.js"
@@ -48,8 +43,7 @@
     },
     {
       "matches": [
-        "http://*.indiegala.com/*",
-        "https://*.indiegala.com/*"
+        "*://*.indiegala.com/*"
       ],
       "js": [
         "js/sites/indiegala.js"
@@ -59,8 +53,6 @@
   "permissions": [
    "tabs",
     "storage",
-    "https://localhost:5000/",
-    "https://hb-steam-checker.herokuapp.com/",
-    "https://*.humblebundle.com/"
+    "https://hb-steam-checker.herokuapp.com/"
   ]
 }
