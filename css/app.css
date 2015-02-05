@@ -47,3 +47,7 @@
 .games-box .b_game {
   position: relative;
 }
+
+.games-box .b_game .gam {
+  float: none;
+}
