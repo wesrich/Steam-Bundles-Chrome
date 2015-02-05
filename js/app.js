@@ -1,7 +1,6 @@
 function BundleChecker() {
   var _self = this;
 
-  this.version = "0.0.1";
   this.api_url = window.location.protocol+"//hb-steam-checker.herokuapp.com/";
   // this.api_url = "http://hb-steam-checker.herokuapp.com/";
 
