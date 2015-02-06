@@ -49,5 +49,5 @@
 }
 
 .games-box .b_game .gam {
-  float: none;
+  float: none !important;
 }
